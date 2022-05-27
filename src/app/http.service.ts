@@ -21,11 +21,11 @@ export class HttpService {
   // removeDotsUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
   // dataUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-  };
+  // httpOptions = {
+  //   headers: new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //   })
+  // };
 
   regRequest(user: User): Observable<any> {
     let userJson: string = JSON.stringify(user)
