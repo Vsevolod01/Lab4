@@ -1,0 +1,23 @@
+.clock-container {
+  font-family: monospace;
+  font-size: 16px;
+
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+  /*align-content: center;*/
+  align-items: center;
+}
+#clock {
+  width: 200px;
+  background-color: white;
+  text-align: center;
+  border: 1px solid black;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myCanvas {
+  margin-bottom: 15px;
+  padding-top: 10%;
+}

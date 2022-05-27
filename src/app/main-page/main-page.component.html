@@ -1,0 +1,101 @@
+<div class="interaction-container">
+
+  <div class="selectors">
+    <div class="selector">
+      <label for="r-label" class="selector-description">R value: {{rVal}}</label>
+      <p-spinner id="r-label" [min]="-5" [max]="3" [(ngModel)]="rVal" (click)="rButtonClick(rVal!)"></p-spinner>
+    </div>
+    <div class="selector">
+      <label for="x-label" class="selector-description">X value: {{xVal}}</label>
+      <p-spinner id="x-label" [min]="-5" [max]="3" [(ngModel)]="xVal"></p-spinner>
+    </div>
+    <div class="selector">
+      <label for="y-label" class="selector-description">Y value: {{yVal}}</label>
+      <input style="margin-right: 22px" id="y-label" type="text" pInputText [(ngModel)]="yVal" maxlength="16">
+    </div>
+    <button id="submit-button" class="submit" (click)="submit()">Отправить</button>
+    <button id="clear-button" class="submit" (click)="clear()">Очистить таблицу</button>
+    <div class="alert-danger submit"
+         *ngIf="!validInput">
+      {{alertMsg}}
+    </div>
+  </div>
+
+  <div class="svg-container">
+    <svg (click)="svgGraphClick($event)" xmlns="http://www.w3.org/2000/svg" id="svg-graph" width="260" height="260">
+      <line class="svg-axis" x1="0" y1="130" x2="260" y2="130"/>
+      <polygon points="260,130 250,125 250,135"/>
+
+      <line class="svg-axis" x1="130" y1="260" x2="130" y2="0"/>
+      <polygon points="130,0 125,10 135,10"/>
+
+      <!-- X-axis coordinates-->
+      <line class="svg-coordinate-line" x1="30" y1="125" x2="30" y2="135"/>
+      <text class="svg-coordinate-text" x="24" y="123">-R</text>
+
+      <line class="svg-coordinate-line" x1="80" y1="125" x2="80" y2="135"/>
+      <text class="svg-coordinate-text" x="74" y="123">-R/2</text>
+
+      <line class="svg-coordinate-line" x1="180" y1="125" x2="180" y2="135"/>
+      <text class="svg-coordinate-text" x="178" y="123">R/2</text>
+
+      <line class="svg-coordinate-line" x1="230" y1="125" x2="230" y2="135"/>
+      <text class="svg-coordinate-text" x="228" y="123">R</text>
+
+      <!-- Y-axis coordinates-->
+      <line class="svg-coordinate-line" x1="125" y1="230" x2="135" y2="230"/>
+      <text class="svg-coordinate-text" x="136" y="234">-R</text>
+
+      <line class="svg-coordinate-line" x1="125" y1="180" x2="135" y2="180"/>
+      <text class="svg-coordinate-text" x="136" y="184">-R/2</text>
+
+      <line class="svg-coordinate-line" x1="125" y1="80" x2="135" y2="80"/>
+      <text class="svg-coordinate-text" x="136" y="84">R/2</text>
+
+      <line class="svg-coordinate-line" x1="125" y1="30" x2="135" y2="30"/>
+      <text class="svg-coordinate-text" x="136" y="34">R</text>
+
+      <!-- Triangle polygon-->
+      <polygon class="svg-triangle-polygon"
+               points="130,130 130,30 30,130"/>
+
+      <!-- Rectangle polygon-->
+      <polygon class="svg-rectangle-polygon"
+               points="130,130 130,80 230,80 230,130"/>
+
+      <!-- Sector polygon-->
+      <path class="svg-sector-polygon"
+            d="M 30 130 A 100 100 0 0 0 130 230 L 130 130 Z"/>
+    </svg>
+  </div>
+</div>
+
+
+<div class="data-container">
+  <div class="inner-scroll-container">
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th scope="col">User</th>
+        <th scope="col">X</th>
+        <th scope="col">Y</th>
+        <th scope="col">R</th>
+        <th scope="col">Current time</th>
+        <th scope="col">Execution time</th>
+        <th scope="col">Result</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of rows">
+        <td>{{row.login}}</td>
+        <td>{{row.x}}</td>
+        <td>{{row.y}}</td>
+        <td>{{row.r}}</td>
+        <td>{{row.curTime}}</td>
+        <td>{{row.execTime}}</td>
+        <td>{{row.result}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

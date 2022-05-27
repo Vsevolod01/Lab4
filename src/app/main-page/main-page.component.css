@@ -1,0 +1,127 @@
+::ng-deep :root {;
+  --svg-main-color: #2196f3;
+  --svg-border-color: #155D97;
+}
+
+html, body {
+  height: 100%;
+}
+
+.submit {
+  border-radius: 6px;
+  background-color: white;
+  margin: 2px;
+  display: inline-block;
+  text-decoration: none;
+  color: black
+}
+
+.submit:hover {
+  transition: 0.1s;
+  background-color: lightgrey;
+  display: inline-block;
+}
+
+.selectors {
+  width: 65%;
+}
+
+.selectors > * {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 1%;
+  margin-bottom: 32px;
+}
+
+.selector {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.selector-description {
+  padding-right: 20%;
+  align-self: center;
+}
+
+.interaction-container {
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.svg-container {
+  width: 35%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.data-container {
+  text-align: center;
+  width: 99%;
+  margin-top: 32px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 16px;
+}
+
+th, td {
+  border: 1px solid black;
+}
+
+.inner-scroll-container {
+  overflow: auto;
+  height: 100%;
+}
+
+.alert-danger {
+  text-align: center;
+  background-color: red;
+}
+
+.svg-coordinate-text {
+  font-size: 14px;
+}
+
+.svg-coordinate-line, .svg-axis {
+  stroke: black;
+}
+
+.svg-triangle-polygon {
+  fill: var(--svg-main-color);
+  fill-opacity: 0.7;
+  stroke: var(--svg-border-color);
+}
+
+.svg-triangle-polygon:hover {
+  fill-opacity: 0.8;
+}
+
+.svg-rectangle-polygon {
+  fill: var(--svg-main-color);
+  fill-opacity: 0.7;
+  stroke: var(--svg-border-color);
+}
+
+.svg-rectangle-polygon:hover {
+  fill-opacity: 0.8;
+}
+
+.svg-sector-polygon {
+  fill: var(--svg-main-color);
+  fill-opacity: 0.7;
+  stroke: var(--svg-border-color);
+}
+
+.svg-sector-polygon:hover {
+  fill: var(--svg-main-color);
+  fill-opacity: 0.8;
+}
