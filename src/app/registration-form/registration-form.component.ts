@@ -4,11 +4,11 @@ import {HttpService} from "../http.service";
 import {Router} from "@angular/router";
 
 export class User {
-  login: string
+  name: string
   password: string
 
   constructor(login: string, password: string) {
-    this.login = login
+    this.name = login
     this.password = password
   }
 }
@@ -50,10 +50,12 @@ export class RegistrationFormComponent {
     let password: string = passwordControl.value
 
     this.httpService.regRequest(new User(login, password)).subscribe((data: any) => {
-      if (data.success)
-        this.router.navigate(["/login"])
-      else
+      if (data.password)
+        this.router.navigate(["/main"])
+      else {
         this.setAlert(data.info)
+        console.log(data)
+      }
     })
   }
 
