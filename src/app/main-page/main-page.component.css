@@ -3,6 +3,9 @@
   --svg-border-color: #155D97;
 }
 
+body {
+  padding-bottom: 70px;
+}
 html, body {
   height: 100%;
 }

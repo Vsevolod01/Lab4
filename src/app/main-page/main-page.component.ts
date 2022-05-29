@@ -92,7 +92,7 @@ export class MainPageComponent implements OnInit {
     for (let dot of this.rows) {
       let svgX = dot.x / this.rVal * 100 + 130
       let svgY = 130 - dot.y / this.rVal * 100
-      MainPageComponent.drawPoint(svgX, svgY, dot.result, svgDotRadius)
+      MainPageComponent.drawDot(svgX, svgY, dot.result, svgDotRadius)
     }
   }
 
@@ -131,7 +131,7 @@ export class MainPageComponent implements OnInit {
           if (this.rVal != 0) {
             let svgX = data.x / this.rVal! * 100 + 130
             let svgY = 130 - data.y / this.rVal! * 100
-            MainPageComponent.drawPoint(svgX, svgY, data.result, svgDotRadius)
+            MainPageComponent.drawDot(svgX, svgY, data.result, svgDotRadius)
           }
         })
     }
@@ -141,8 +141,12 @@ export class MainPageComponent implements OnInit {
     this.dropAlert()
 
     let userToken: string | null = localStorage.getItem('userToken')
+
     if (userToken) {
-      this.httpService.clearRequest(userToken).subscribe(() => location.reload())
+      this.httpService.clearRequest(userToken).subscribe(() => {this.rows = []; MainPageComponent.clearDotsFromSVG()})
+
+      // this.rows = [];
+
     }
   }
 
@@ -176,12 +180,12 @@ export class MainPageComponent implements OnInit {
               result: data.result == '1'
             }
           )
-          MainPageComponent.drawPoint(x, y, data.result, svgDotRadius);
+          MainPageComponent.drawDot(x, y, data.result, svgDotRadius);
         })
     }
   }
 
-  private static drawPoint(x: number, y: number, hit: boolean, radius: number) {
+  private static drawDot(x: number, y: number, hit: boolean, radius: number) {
     let element = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     element.setAttribute('class', "svg-point")
     element.setAttribute('cx', x.toString())
@@ -195,6 +199,10 @@ export class MainPageComponent implements OnInit {
       element.setAttribute('fill', failureColor)
     }
     document.getElementById("svg-graph")!.appendChild(element)
+  }
+
+  private static clearDotsFromSVG(){
+    document.querySelectorAll('.svg-point').forEach(dot => dot.remove());
   }
 
   private setAlert(msg: string) {
