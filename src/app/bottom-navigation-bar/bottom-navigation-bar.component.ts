@@ -12,4 +12,8 @@ export class BottomNavigationBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(): void {
+    localStorage.removeItem("userToken");
+  }
+
 }

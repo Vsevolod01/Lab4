@@ -1,7 +1,7 @@
 <main class="form-signin">
   <app-clock></app-clock>
   <form [formGroup]="loginForm">
-    <h1 class="h3 mb-3 fw-normal">Please log in</h1>
+    <h1 class="h3 mb-3 fw-normal">Please log in or sign up</h1>
 
     <div class="form-floating">
       <input formControlName="loginEntry" name="login" type="email" class="form-control" id="floatingInput">
@@ -12,7 +12,8 @@
       <label for="floatingPassword">Password</label>
     </div>
 
-    <button (click)="submit()" class="w-100 btn btn-lg btn-primary">Sign in</button>
+    <button style="margin-bottom: 6px" (click)="submit('login')" class="w-100 btn btn-lg btn-primary">Log in</button>
+    <button (click)="submit('reg')" class="w-100 btn btn-lg btn-primary">Sign up</button>
   </form>
   <div class="alert alert-danger"
        *ngIf="!validInput">

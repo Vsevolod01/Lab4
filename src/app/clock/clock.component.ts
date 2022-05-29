@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { interval, Subscription } from 'rxjs';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -132,4 +132,7 @@ export class ClockComponent implements OnInit {
     return;
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {User} from "./registration-form/registration-form.component";
+import {User} from "./login-form/login-form.component";
 import {Observable} from "rxjs";
 import {Dot} from "./main-page/main-page.component";
 
@@ -9,17 +9,17 @@ export class HttpService {
   constructor(private http: HttpClient) {
   }
 
-  // regUrl: string = "http://localhost:8080/account/register"
-  // loginUrl: string = "http://localhost:8080/account/login"
-  // addDotUrl: string = "http://localhost:8080/dots"
-  // removeDotsUrl: string = "http://localhost:8080/dots"
-  // dataUrl: string = "http://localhost:8080/dots"
+  regUrl: string = "http://localhost:8080/account/register"
+  loginUrl: string = "http://localhost:8080/account/login"
+  addDotUrl: string = "http://localhost:8080/dots"
+  removeDotsUrl: string = "http://localhost:8080/dots"
+  dataUrl: string = "http://localhost:8080/dots"
 
-  regUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/account/register"
-  loginUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/account/login"
-  addDotUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
-  removeDotsUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
-  dataUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
+  // regUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/account/register"
+  // loginUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/account/login"
+  // addDotUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
+  // removeDotsUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
+  // dataUrl: string = "http://localhost:8080/lab4-0.0.1-SNAPSHOT/dots"
 
   httpOptions = {
     headers: new HttpHeaders({

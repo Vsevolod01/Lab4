@@ -2,7 +2,16 @@ import {Component} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {HttpService} from "../http.service";
 import {Router} from "@angular/router";
-import {User} from "../registration-form/registration-form.component";
+
+export class User {
+  name: string
+  password: string
+
+  constructor(login: string, password: string) {
+    this.name = login
+    this.password = password
+  }
+}
 
 @Component({
   selector: 'app-login-form',
@@ -25,7 +34,7 @@ export class LoginFormComponent {
     })
   }
 
-  submit() {
+  submit(param: String) {
     this.dropAlert()
 
     let loginControl: AbstractControl = this.loginForm.controls['loginEntry']
@@ -37,15 +46,28 @@ export class LoginFormComponent {
     let login: string = loginControl.value
     let password: string = passwordControl.value
 
-    this.httpService.loginRequest(new User(login, password)).subscribe((data: any) => {
-      console.log(data)
-      if (data.authenticated) {
-        localStorage.setItem("userToken", btoa(login + ':' + password))
-        this.router.navigate(["/main"])
-      }
-      else
-        this.setAlert(data.info)
-    })
+    if (param == "login") {
+      this.httpService.loginRequest(new User(login, password)).subscribe((data: any) => {
+        console.log(data)
+        if (data.authenticated) {
+          localStorage.setItem("userToken", btoa(login + ':' + password))
+          this.router.navigate(["/main"])
+        } else
+          this.setAlert(data.info)
+      })
+    }
+    else {
+      this.httpService.regRequest(new User(login, password)).subscribe((data: any) => {
+        if (data.password) {
+          localStorage.setItem("userToken", btoa(login + ':' + password))
+          this.router.navigate(["/main"])
+        }
+        else {
+          this.setAlert(data.info)
+          console.log(data)
+        }
+      })
+    }
   }
 
   private parseError(loginErr: ValidationErrors | null, passwordErr: ValidationErrors | null) {
