@@ -27,27 +27,30 @@ export class MainPageComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) {
   }
 
-  rows: Array<{ x: number, y: number, r: number, date: string, result: boolean }> = [{
-    "x": 3,
-    "y": 3,
-    "r": 3,
-    "date": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
-    "result": true
-  },
-    {
-      "x": 3,
-      "y": 3,
-      "r": 3,
-      "date": "время норм чела",
-      "result": true
-    }];
+  rows: Array<{ x: number, y: number, r: number, date: string, result: boolean }> = []
+  //   "x": 3,
+  //   "y": 3,
+  //   "r": 3,
+  //   "date": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
+  //   "result": true
+  // },
+  //   {
+  //     "x": 3,
+  //     "y": 3,
+  //     "r": 3,
+  //     "date": "время норм чела",
+  //     "result": true
+  //   }];
 
   ngOnInit(): void {
     let userToken: string | null = localStorage.getItem('userToken')
     if (userToken != null) {
       this.httpService.dataRequest(userToken).subscribe(
         (data: any) => {
-          this.rows = data;
+          this.rows = data.map((obj: any) => {
+            obj.result = obj.result == '1';
+            return obj;
+          });
         }
       )
     }
@@ -121,8 +124,8 @@ export class MainPageComponent implements OnInit {
               x: data.x,
               y: data.y,
               r: data.r,
-              date: data.curTime,
-              result: data.result == '1'
+              result: data.result == '1',
+              date: data.date
             }
           )
           if (this.rVal != 0) {
@@ -169,7 +172,7 @@ export class MainPageComponent implements OnInit {
               x: data.x,
               y: data.y,
               r: data.r,
-              date: data.curTime,
+              date: data.date,
               result: data.result == '1'
             }
           )

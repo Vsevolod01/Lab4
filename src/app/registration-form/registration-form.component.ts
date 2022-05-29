@@ -50,8 +50,10 @@ export class RegistrationFormComponent {
     let password: string = passwordControl.value
 
     this.httpService.regRequest(new User(login, password)).subscribe((data: any) => {
-      if (data.password)
+      if (data.password) {
+        localStorage.setItem("userToken", btoa(login + ':' + password))
         this.router.navigate(["/main"])
+      }
       else {
         this.setAlert(data.info)
         console.log(data)

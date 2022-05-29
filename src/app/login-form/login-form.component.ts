@@ -39,8 +39,8 @@ export class LoginFormComponent {
 
     this.httpService.loginRequest(new User(login, password)).subscribe((data: any) => {
       console.log(data)
-      if (data.success) {
-        localStorage.setItem("userToken", data.token)
+      if (data.authenticated) {
+        localStorage.setItem("userToken", btoa(login + ':' + password))
         this.router.navigate(["/main"])
       }
       else

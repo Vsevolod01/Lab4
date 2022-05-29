@@ -42,14 +42,14 @@ export class HttpService {
 
   addRequest(dot: Dot, userToken: string): Observable<any> {
     let dotJson: string = JSON.stringify(dot)
-    return this.http.post(this.addDotUrl, dotJson, {headers: new HttpHeaders({"Authorization": userToken})})
+    return this.http.post(this.addDotUrl, dotJson, {headers: this.httpOptions.headers.append( "Authorization", 'Basic ' + userToken)})
   }
 
   clearRequest(userToken: string): Observable<any> {
-    return this.http.delete(this.removeDotsUrl, {headers: new HttpHeaders({"Authorization": userToken})});
+    return this.http.delete(this.removeDotsUrl, {headers: this.httpOptions.headers.append( "Authorization", 'Basic ' + userToken)});
   }
 
   dataRequest(userToken: string): Observable<any> {
-    return this.http.get(this.dataUrl, {headers: new HttpHeaders({"Authorization": userToken})});
+    return this.http.get(this.dataUrl, {headers: this.httpOptions.headers.append( "Authorization", 'Basic ' + userToken)});
   }
 }
