@@ -45,3 +45,15 @@ body {
   text-align: center;
   display: inline-block;
 }
+
+.form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  padding-bottom: 120px;
+}

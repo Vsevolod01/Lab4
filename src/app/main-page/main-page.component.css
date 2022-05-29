@@ -26,7 +26,7 @@ html, body {
 }
 
 .selectors {
-  width: 65%;
+  /*width: 65%;*/
 }
 
 .selectors > * {
@@ -45,7 +45,6 @@ html, body {
 }
 
 .selector-description {
-  padding-right: 20%;
   align-self: center;
 }
 
@@ -58,7 +57,6 @@ html, body {
 }
 
 .svg-container {
-  width: 35%;
   display: flex;
   flex-flow: column;
   align-items: center;
