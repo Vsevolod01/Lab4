@@ -38,6 +38,7 @@ export class LoginFormComponent {
     let password: string = passwordControl.value
 
     this.httpService.loginRequest(new User(login, password)).subscribe((data: any) => {
+      console.log(data)
       if (data.success) {
         localStorage.setItem("userToken", data.token)
         this.router.navigate(["/main"])

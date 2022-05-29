@@ -27,37 +27,33 @@ export class MainPageComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router) {
   }
 
-  rows: Array<{ login: string, x: number, y: number, r: number, curTime: string, execTime: number, result: boolean }> = [{
-    "login": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
+  rows: Array<{ x: number, y: number, r: number, date: string, result: boolean }> = [{
     "x": 3,
     "y": 3,
     "r": 3,
-    "curTime": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
-    "execTime": 3,
+    "date": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
     "result": true
   },
     {
-      "login": "норм чел",
       "x": 3,
       "y": 3,
       "r": 3,
-      "curTime": "время норм чела",
-      "execTime": 3,
+      "date": "время норм чела",
       "result": true
     }];
 
   ngOnInit(): void {
-    // let userToken: string | null = localStorage.getItem('userToken')
-    // if (userToken != null) {
-    //   this.httpService.dataRequest(userToken).subscribe(
-    //     (data: any) => {
-    //       this.rows = data;
-    //     }
-    //   )
-    // }
-    // else {
-    //   this.router.navigate(["/unauthorized"])
-    // }
+    let userToken: string | null = localStorage.getItem('userToken')
+    if (userToken != null) {
+      this.httpService.dataRequest(userToken).subscribe(
+        (data: any) => {
+          this.rows = data;
+        }
+      )
+    }
+    else {
+      this.router.navigate(["/unauthorized"])
+    }
   }
 
   xVal: number | undefined
@@ -122,13 +118,11 @@ export class MainPageComponent implements OnInit {
         .subscribe((data: any) => {
           this.rows.push(
             {
-              login: data.login,
               x: data.x,
               y: data.y,
               r: data.r,
-              curTime: data.curTime,
-              execTime: data.execTime,
-              result: data.result
+              date: data.curTime,
+              result: data.result == '1'
             }
           )
           if (this.rVal != 0) {
@@ -172,13 +166,11 @@ export class MainPageComponent implements OnInit {
         .subscribe((data: any) => {
           this.rows.push(
             {
-              login: data.login,
               x: data.x,
               y: data.y,
               r: data.r,
-              curTime: data.curTime,
-              execTime: data.execTime,
-              result: data.result
+              date: data.curTime,
+              result: data.result == '1'
             }
           )
           MainPageComponent.drawPoint(x, y, data.result, svgDotRadius);

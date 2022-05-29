@@ -33,8 +33,11 @@ export class HttpService {
   }
 
   loginRequest(user: User): Observable<any> {
-    let userJson: string = JSON.stringify(user)
-    return this.http.post(this.loginUrl, userJson, this.httpOptions)
+    // this.httpOptions.headers.append( "Authorization", 'Basic ' + btoa(user.name + ':' + user.password))
+    // console.log(this.httpOptions.headers)
+    // this.httpOptions.headers = this.httpOptions.headers.append( "Authorization", 'Basic ' + btoa(user.name + ':' + user.password))
+    // console.log(this.httpOptions.headers)
+    return this.http.get(this.loginUrl, {headers: this.httpOptions.headers.append( "Authorization", 'Basic ' + btoa(user.name + ':' + user.password))})
   }
 
   addRequest(dot: Dot, userToken: string): Observable<any> {

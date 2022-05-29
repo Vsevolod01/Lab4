@@ -76,7 +76,6 @@
     <table class="table table-striped table-sm">
       <thead>
       <tr>
-        <th scope="col">User</th>
         <th scope="col">X</th>
         <th scope="col">Y</th>
         <th scope="col">R</th>
@@ -87,12 +86,10 @@
       </thead>
       <tbody>
       <tr *ngFor="let row of rows">
-        <td>{{row.login}}</td>
         <td>{{row.x}}</td>
         <td>{{row.y}}</td>
         <td>{{row.r}}</td>
-        <td>{{row.curTime}}</td>
-        <td>{{row.execTime}}</td>
+        <td>{{row.date}}</td>
         <td>{{row.result}}</td>
       </tr>
       </tbody>
