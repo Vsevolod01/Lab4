@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -7,9 +8,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ClockComponent implements OnInit {
 
+  subscription: Subscription;
+
   constructor() {
-    window.setInterval(
-      () => this.displayDate(), 1000);
+    const source = interval(1000);
+    this.subscription = source.subscribe(() => this.displayDate())
+    // window.setInterval(
+    //   () => this.displayDate(), 1000);
     document.addEventListener("DOMContentLoaded", () => this.displayDate());
   }
 
