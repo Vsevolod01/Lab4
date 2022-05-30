@@ -23,9 +23,11 @@
             </button>
             <button (click)="submit('reg')" class="w-100 btn btn-lg btn-primary">Sign up</button>
           </form>
-          <div class="alert alert-danger"
-               *ngIf="!validInput">
-            {{alertMsg}}
+          <div class="alert-container">
+            <div class="alert alert-danger"
+                 *ngIf="!validInput">
+              {{alertMsg}}
+            </div>
           </div>
         </div>
       </div>

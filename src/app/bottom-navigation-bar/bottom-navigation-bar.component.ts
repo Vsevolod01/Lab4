@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BottomNavigationBarComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    this.user = localStorage.getItem('user')!
+  }
 
+  user : string;
   ngOnInit(): void {
   }
 

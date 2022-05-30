@@ -30,7 +30,7 @@ export class LoginFormComponent {
     this.validInput = true;
     this.loginForm = new FormGroup({
       "loginEntry": new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z0-9]+")]),
-      "passwordEntry": new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z0-9]+")]),
+      "passwordEntry": new FormControl("", [Validators.required, Validators.pattern("[a-zA-Z0-9]+"), Validators.minLength(6)]),
     })
   }
 
@@ -45,26 +45,30 @@ export class LoginFormComponent {
 
     let login: string = loginControl.value
     let password: string = passwordControl.value
-
     if (param == "login") {
-      this.httpService.loginRequest(new User(login, password)).subscribe((data: any) => {
-        console.log(data)
-        if (data.authenticated) {
-          localStorage.setItem("userToken", btoa(login + ':' + password))
-          this.router.navigate(["/main"])
-        } else
-          this.setAlert(data.info)
-      })
-    }
-    else {
-      this.httpService.regRequest(new User(login, password)).subscribe((data: any) => {
-        if (data.password) {
-          localStorage.setItem("userToken", btoa(login + ':' + password))
-          this.router.navigate(["/main"])
-        }
-        else {
-          this.setAlert(data.info)
+      this.httpService.loginRequest(new User(login, password)).subscribe({
+        next: (data: any) => {
           console.log(data)
+          localStorage.setItem("userToken", btoa(login + ':' + password))
+          localStorage.setItem("user", login);
+          this.router.navigate(["/main"])
+        },
+        error: err => {
+          console.log(err)
+          this.setAlert("You're not authorized. Perhaps you entered wrong password or this user doesn't exist")
+        }
+      })
+    } else {
+      this.httpService.regRequest(new User(login, password)).subscribe({
+        next: (data: any) => {
+          console.log(data)
+          localStorage.setItem("userToken", btoa(login + ':' + password))
+          localStorage.setItem("user", login);
+          this.router.navigate(["/main"])
+        },
+        error: err => {
+          console.log(err)
+          this.setAlert(err.error.message)
         }
       })
     }
@@ -76,7 +80,7 @@ export class LoginFormComponent {
     }
     if (loginErr != null) {
       if (loginErr['pattern'] != undefined) {
-        this.setAlert("There is allowed only word characters")
+        this.setAlert("There are allowed only word characters")
         return;
       }
       if (loginErr['required'] != undefined) {
@@ -91,6 +95,10 @@ export class LoginFormComponent {
       }
       if (passwordErr['required'] != undefined) {
         this.setAlert("Entries shouldn't be empty")
+        return;
+      }
+      if (passwordErr['minlength'] != undefined) {
+        this.setAlert("Password length should be longer or equal to 6 characters")
         return;
       }
     }

@@ -54,6 +54,6 @@ body {
   justify-content: center;
 }
 
-form {
-  padding-bottom: 120px;
+.alert-container {
+  height: 30%;
 }

@@ -28,19 +28,6 @@ export class MainPageComponent implements OnInit {
   }
 
   rows: Array<{ x: number, y: number, r: number, date: string, result: boolean }> = []
-  //   "x": 3,
-  //   "y": 3,
-  //   "r": 3,
-  //   "date": "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck",
-  //   "result": true
-  // },
-  //   {
-  //     "x": 3,
-  //     "y": 3,
-  //     "r": 3,
-  //     "date": "время норм чела",
-  //     "result": true
-  //   }];
 
   ngOnInit(): void {
     let userToken: string | null = localStorage.getItem('userToken')
@@ -53,8 +40,7 @@ export class MainPageComponent implements OnInit {
           });
         }
       )
-    }
-    else {
+    } else {
       this.router.navigate(["/unauthorized"])
     }
   }
@@ -87,12 +73,19 @@ export class MainPageComponent implements OnInit {
       svgDots.item(0)!.remove();
     }
 
-    if (this.rVal == 0)
-      return
+    let svgX;
+    let svgY;
     for (let dot of this.rows) {
-      let svgX = dot.x / this.rVal * 100 + 130
-      let svgY = 130 - dot.y / this.rVal * 100
-      MainPageComponent.drawDot(svgX, svgY, dot.result, svgDotRadius)
+      if (this.rVal == 0 && dot.x == 0 && dot.y == 0) {
+        svgX = 130
+        svgY = 130
+      } else {
+        svgX = dot.x / this.rVal * 100 + 130
+        svgY = 130 - dot.y / this.rVal * 100
+      }
+      if (this.rVal >= 0) {
+        MainPageComponent.drawDot(svgX, svgY, dot.result, svgDotRadius)
+      }
     }
   }
 
@@ -128,10 +121,17 @@ export class MainPageComponent implements OnInit {
               date: data.date
             }
           )
+          let svgX;
+          let svgY;
           if (this.rVal != 0) {
-            let svgX = data.x / this.rVal! * 100 + 130
-            let svgY = 130 - data.y / this.rVal! * 100
-            MainPageComponent.drawDot(svgX, svgY, data.result, svgDotRadius)
+            svgX = data.x / this.rVal! * 100 + 130
+            svgY = 130 - data.y / this.rVal! * 100
+          } else {
+            svgX = 130
+            svgY = 130
+          }
+          if (this.rVal! >= 0) {
+            MainPageComponent.drawDot(svgX, svgY, data.result == '1', svgDotRadius)
           }
         })
     }
@@ -141,12 +141,11 @@ export class MainPageComponent implements OnInit {
     this.dropAlert()
 
     let userToken: string | null = localStorage.getItem('userToken')
-
     if (userToken) {
-      this.httpService.clearRequest(userToken).subscribe(() => {this.rows = []; MainPageComponent.clearDotsFromSVG()})
-
-      // this.rows = [];
-
+      this.httpService.clearRequest(userToken).subscribe(() => {
+        this.rows = [];
+        MainPageComponent.clearDotsFromSVG()
+      })
     }
   }
 
@@ -156,13 +155,22 @@ export class MainPageComponent implements OnInit {
       this.setAlert("Radius isn't set")
       return;
     }
+    if (this.rVal < 0) {
+      this.setAlert("Radius shouldn't be negative")
+      return;
+    }
     let offset = document.getElementById("svg-graph")!.getBoundingClientRect()
     let x: number = event.clientX - offset.left
     let y: number = event.clientY - offset.top
 
     let x_relative: number = (x - 130) / 100 * this.rVal
     let y_relative: number = (130 - y) / 100 * this.rVal
-
+    if (this.rVal == 0) {
+      x_relative = 0
+      y_relative = 0
+      x = 130
+      y = 130
+    }
     let precision = 5
     x_relative = MainPageComponent.round(x_relative, precision)
     y_relative = MainPageComponent.round(y_relative, precision)
@@ -180,7 +188,7 @@ export class MainPageComponent implements OnInit {
               result: data.result == '1'
             }
           )
-          MainPageComponent.drawDot(x, y, data.result, svgDotRadius);
+          MainPageComponent.drawDot(x, y, data.result == '1', svgDotRadius);
         })
     }
   }
@@ -201,7 +209,7 @@ export class MainPageComponent implements OnInit {
     document.getElementById("svg-graph")!.appendChild(element)
   }
 
-  private static clearDotsFromSVG(){
+  private static clearDotsFromSVG() {
     document.querySelectorAll('.svg-point').forEach(dot => dot.remove());
   }
 
