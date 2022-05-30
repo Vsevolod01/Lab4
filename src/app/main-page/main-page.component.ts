@@ -126,9 +126,12 @@ export class MainPageComponent implements OnInit {
           if (this.rVal != 0) {
             svgX = data.x / this.rVal! * 100 + 130
             svgY = 130 - data.y / this.rVal! * 100
-          } else {
+          } else if (data.result == '1') {
             svgX = 130
             svgY = 130
+          } else {
+            svgX = -130
+            svgY = -130
           }
           if (this.rVal! >= 0) {
             MainPageComponent.drawDot(svgX, svgY, data.result == '1', svgDotRadius)

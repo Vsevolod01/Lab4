@@ -16,8 +16,8 @@
             <label for="y-label" class="selector-description">Y value: {{yVal}}</label>
             <input style="margin-right: 22px" id="y-label" type="text" pInputText [(ngModel)]="yVal" maxlength="16">
           </div>
-          <button id="submit-button" class="submit" (click)="submit()">Отправить</button>
-          <button id="clear-button" class="submit" (click)="clear()">Очистить таблицу</button>
+          <button id="submit-button" class="submit" (click)="submit()">Submit</button>
+          <button id="clear-button" class="submit" (click)="clear()">Clear the table</button>
           <div class="alert-danger submit"
                *ngIf="!validInput">
             {{alertMsg}}
