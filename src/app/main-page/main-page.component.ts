@@ -76,9 +76,15 @@ export class MainPageComponent implements OnInit {
     let svgX;
     let svgY;
     for (let dot of this.rows) {
-      if (this.rVal == 0 && dot.x == 0 && dot.y == 0) {
-        svgX = 130
-        svgY = 130
+      if (this.rVal == 0) {
+        if (dot.x == 0 && dot.y == 0) {
+          svgX = 130
+          svgY = 130
+        }
+        else {
+          svgX = -130
+          svgY = -130
+        }
       } else {
         svgX = dot.x / this.rVal * 100 + 130
         svgY = 130 - dot.y / this.rVal * 100
